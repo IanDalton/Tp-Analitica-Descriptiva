@@ -64,23 +64,27 @@ mapdata <- map_data("world")
 
 
 mapdata <- left_join(mapdata,
-        data %>%
-            group_by(country_txt) %>%
-            count() %>%
-            mutate( country_txt = if( country_txt == "United States"){"USA"}else{country_txt}),
-        by = c("region" = "country_txt")
-    )
+    data %>%
+        group_by(country_txt) %>%
+        count() %>%
+        mutate(country_txt = if (country_txt == "United States") {
+            "USA"
+        } else {
+            country_txt
+        }),
+    by = c("region" = "country_txt")
+)
 mapdata1 <- mapdata %>%
     filter(!is.na(n))
 
-ggplot(mapdata1, aes(long,lat,group = group)) +
+ggplot(mapdata1, aes(long, lat, group = group)) +
     geom_map(
         data = world_coordinate, map = world_coordinate,
         aes(long, lat, map_id = region),
         color = "black", fill = "white"
-    )+
-    geom_polygon(aes(fill = log(n)), color = "black")+
-    scale_fill_gradient(low = "green", high = "red")+
+    ) +
+    geom_polygon(aes(fill = log(n)), color = "black") +
+    scale_fill_gradient(low = "green", high = "red") +
     labs(
         x = "Longitud",
         y = "Latitud",
@@ -89,28 +93,32 @@ ggplot(mapdata1, aes(long,lat,group = group)) +
         caption = "NOTA: Se muestra el logaritmo de la cantidad de ataques por país"
     ) +
     theme(text = element_text(family = "Comic Sans MS"))
-    
-#creating a heatmap with the atackers
+
+# creating a heatmap with the atackers
 
 mapdata <- map_data("world")
 
 mapdata <- left_join(mapdata,
-        data %>%
-            group_by(natlty1_txt) %>%
-            filter(!is.na(natlty1_txt)) %>%
-            count() %>%
-            mutate( natlty1_txt = if( natlty1_txt == "United States"){"USA"}else{natlty1_txt}) %>%
-            filter(!is.na(n)),
-        by = c("region" = "natlty1_txt")
-    )
-ggplot(mapdata, aes(long,lat,group = group)) +
+    data %>%
+        group_by(natlty1_txt) %>%
+        filter(!is.na(natlty1_txt)) %>%
+        count() %>%
+        mutate(natlty1_txt = if (natlty1_txt == "United States") {
+            "USA"
+        } else {
+            natlty1_txt
+        }) %>%
+        filter(!is.na(n)),
+    by = c("region" = "natlty1_txt")
+)
+ggplot(mapdata, aes(long, lat, group = group)) +
     geom_map(
         data = world_coordinate, map = world_coordinate,
         aes(long, lat, map_id = region),
         color = "black", fill = "white"
-    )+
-    geom_polygon(aes(fill = log(n)), color = "black")+
-    scale_fill_gradient(low = "green", high = "red")+
+    ) +
+    geom_polygon(aes(fill = log(n)), color = "black") +
+    scale_fill_gradient(low = "green", high = "red") +
     labs(
         x = "Longitud",
         y = "Latitud",
@@ -124,23 +132,27 @@ ggplot(mapdata, aes(long,lat,group = group)) +
 mapdata <- map_data("world")
 
 mapdata <- left_join(mapdata,
-        data %>%
-            group_by(natlty1_txt) %>%
-            filter(!is.na(natlty1_txt)) %>%
-            summarise(n = sum(nkill)) %>%
-            mutate( natlty1_txt = if( natlty1_txt == "United States"){"USA"}else{natlty1_txt}) %>%
-            filter(!is.na(n)),
-        by = c("region" = "natlty1_txt")
-    )
+    data %>%
+        group_by(natlty1_txt) %>%
+        filter(!is.na(natlty1_txt)) %>%
+        summarise(n = sum(nkill)) %>%
+        mutate(natlty1_txt = if (natlty1_txt == "United States") {
+            "USA"
+        } else {
+            natlty1_txt
+        }) %>%
+        filter(!is.na(n)),
+    by = c("region" = "natlty1_txt")
+)
 
-ggplot(mapdata, aes(long,lat,group = group)) +
+ggplot(mapdata, aes(long, lat, group = group)) +
     geom_map(
         data = world_coordinate, map = world_coordinate,
         aes(long, lat, map_id = region),
         color = "black", fill = "white"
-    )+
-    geom_polygon(aes(fill = log(n)), color = "black")+
-    scale_fill_gradient(low = "green", high = "red")+
+    ) +
+    geom_polygon(aes(fill = log(n)), color = "black") +
+    scale_fill_gradient(low = "green", high = "red") +
     labs(
         x = "Longitud",
         y = "Latitud",
