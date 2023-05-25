@@ -25,6 +25,13 @@ data %>%
         title = "Top 5 grupos con más ataques",
         caption = "NOTA: Se descartaron los casos en los que el grupo no fue identificado"
     )
+#Testing for that
+data %>%
+    filter(gname != "Unknown") %>%
+    group_by(gname, iyear) %>%
+    summarise(nAttacks = n()) %>%
+    aov(nAttacks ~ gname, data = .) %>%
+    summary()
 
 # getting the top 5 groups that have claimed the most victims and showing them as a table
 
@@ -40,6 +47,13 @@ data %>%
         y = "Cantidad de fallecidos",
         title = "Top 5 grupos con más fallecidos"
     )
+#Testing for that
+data %>%
+    filter(nkill != 0) %>%
+    group_by(gname, iyear) %>%
+    summarise(nKills = sum(nkill)) %>%
+    aov(nKills ~ gname, data = .) %>%
+    summary()
 
 data %>%
     group_by(gname) %>%
@@ -54,6 +68,13 @@ data %>%
         y = "Cantidad de heridos",
         title = "Top 5 grupos con más heridos"
     )
+#Testing for that
+data %>%
+    filter(nwound != 0) %>%
+    group_by(gname, iyear) %>%
+    summarise(nWound = sum(nwound)) %>%
+    aov(nWound ~ gname, data = .) %>%
+    summary()
 
 # Showing the evolution over time of the top 5 groups with the most attacks
 

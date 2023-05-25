@@ -1,0 +1,10 @@
+# Reading Excel file
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(extrafont)
+library(stringr)
+loadfonts(device = "win")
+setwd("S:/Github/Tp-Analitica-Descriptiva")
+data <- read_excel("dataset terrorismo.xlsx")

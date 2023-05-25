@@ -96,3 +96,43 @@ data_us %>%
     chow.test(n ~ iyear, data = .)
 
 
+data %>%
+    group_by(region_txt, iyear) %>%
+    count() %>%
+    aov(n ~ region_txt, data = .) %>%
+    summary()
+
+#Testing for mean difference between the kidnappings over the years between the countries
+
+data %>%
+    filter(ishostkid == 1) %>%
+    group_by(country_txt, iyear) %>%
+    count() %>%
+    aov(n ~ country_txt, data = .) %>%
+    summary()
+
+# Testing for mean difference between the kidnapping result over the years
+
+data %>%
+    filter(ishostkid == 1) %>%
+    group_by(hostkidoutcome_txt, iyear) %>%
+    count() %>%
+    aov(n ~ hostkidoutcome_txt, data = .) %>%
+    summary()
+
+# Testing for mean difference between the kidnapping result over the years where the ransom was paid
+
+data %>%
+    filter(ishostkid == 1, !is.na(ransompaid)) %>%
+    group_by(hostkidoutcome_txt, iyear) %>%
+    count() %>%
+    aov(n ~ hostkidoutcome_txt, data = .) %>%
+    summary()
+
+#Testing for the mean difference between the attack types over the years
+
+data %>%
+    group_by(attacktype1_txt, iyear) %>%
+    count() %>%
+    aov(n ~ attacktype1_txt, data = .) %>%
+    summary()

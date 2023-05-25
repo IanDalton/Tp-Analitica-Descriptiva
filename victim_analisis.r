@@ -35,6 +35,15 @@ data %>%
         y = "Cantidad de ataques",
         title = "Top 5 tipos de objetivos más atacados",
     )
+# Testing for that
+
+data %>%
+    group_by(targtype1_txt, iyear) %>%
+    summarise(nAttacks = n()) %>%
+    aov(nAttacks ~ targtype1_txt, data = .) %>%
+    summary()
+
+
 # From private citizens and property, the top 5 subtargets are:
 
 data %>%
@@ -50,6 +59,17 @@ data %>%
         y = "Cantidad de ataques",
         title = "Top 5 subtipos de objetivos más atacados",
     )
+
+#Testing for that
+
+data %>%
+    filter(targtype1_txt == "Private Citizens & Property") %>%
+    group_by(targsubtype1_txt,iyear) %>%
+    summarise(nAttacks = n()) %>%
+    aov(nAttacks ~ targsubtype1_txt, data = .) %>%
+    summary()
+
+
 # Heatmap per country that shows the most attacked target type per country
 
 
